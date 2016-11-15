@@ -119,7 +119,9 @@ configure_ssl() {
 
 configure_hot_standby() {
   case ${REPLICATION_MODE} in
-    slave|snapshot|backup) ;;
+    slave|snapshot|backup)
+      set_postgresql_param "hot_standby" "on"
+      ;;
     *)
       echo "Configuring hot standby..."
       set_postgresql_param "wal_level" "hot_standby"
